@@ -1,0 +1,200 @@
+{% load compress %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Simple To-Do website</title>
+    <meta name="keywords" content="To-Do,todo,daily task,task,tasks,schedule,daily update,tasklist,list">
+    <meta name="description" content="Simple To-Do website is providing free platform to list your activities and tasks, No need to write on paper or memorization. Easy to handle.">
+    <meta name="author" content="Arpit Verma">
+    <!--
+
+    Template 2108 Dashboard
+
+	http://www.tooplate.com/view/2108-dashboard
+
+    -->
+    <link rel="shortcut icon" href="{% static 'img/clock.jpg' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+    <!-- https://fonts.google.com/specimen/Open+Sans -->
+    {% compress css inline %}
+    <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="{% static 'css/fullcalendar.min.css' %}">
+    <!-- https://fullcalendar.io/ -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="{% static 'css/tooplate.css' %}">
+    {% endcompress %}
+    <style>
+        table, th, td {
+            border: 1px white;
+            padding:10px;
+            border-collapse: collapse;
+            font-size:1.5vw;
+            table-layout:fixed;
+        }        
+    </style>
+</head>
+
+<body id="reportsPage">
+    <div class="" id="home">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="navbar navbar-expand-xl navbar-light bg-light">
+
+                        <a class="navbar-brand" href="#">
+                            <i class="fas fa-3x fa-tachometer-alt tm-site-icon"></i>
+                            <h1 class="tm-site-title mb-0">Your Activities</h1>
+                        </a>
+                        <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        {% if user.is_authenticated %}
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mx-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="{{'/'}}">Dashboard
+                                        <span class="sr-only">(current)</span>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="accounts/your_account">Accounts</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="accounts/input_task">Add a task</a>
+                                </li>
+                                
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link d-flex">
+                                        hello<em style = "color:red"><h2>{{user.first_name}}</h2></em>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link d-flex" href="accounts/logout">
+                                        <i class="far fa-user mr-2 tm-logout-icon"></i>
+                                        <span>Logout</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        {% else %}
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mx-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="accounts/register_form"><i>Register</i></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="accounts/login"><i>Login</i></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="contact-us" target="_blank"><i>Contact</i></a>
+                                </li>
+                            </ul>
+                        </div>
+                        {% endif %}
+                    </nav>
+                </div>
+            </div>
+            {% if not user.is_authenticated %}
+            <div class="row tm-content-row tm-mt-big">
+                <div class="container">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+                    <canvas id="myChart" width="300" height="300"></canvas>
+                </div>
+            </div>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <div class="row tm-content-row tm-mt-big">
+                <div>
+                    <h2 style="color:white;text-align:center">Upcoming Tasks</h2>
+                    <table caption="schedule" style = "width:100%;background-color:rgba(0,0,0,0.7)">
+                		<tr style = "color:white">
+                			<th>Activity</th>
+                			<th>Due Date</th>
+                			<th>Delete</th>
+                		</tr>
+                		<tr style = "color:yellow">
+                			<th></th>
+                			<th></th>
+                			<th></th>
+                		</tr>
+                	{% for act in activities_crit %}                        	
+                		<tr style = "color:yellow">
+                			<th>{{act.item}}</th>
+                			<th>{{act.date}}</th>
+                			<th>
+                				<form method="get" action="delete_task">
+                					<input type="hidden" name="act_id" value={{act.id}}>
+                					<button type="submit" class="btn btn-warning" style="border-style: outset; width:auto ; height:auto ; padding:1px" value="delete">delete &#9888</button>
+                				</form>
+                		    </th>
+                		</tr>
+                	{% endfor %}
+                	</table>                                                        
+                </div><br><br>
+                <div>
+                    <strong><h2 style="color:darkorange;text-align:center">Less Important Upcoming Tasks</h2></strong>
+                	<table caption="schedule" style = "width:100%;background-color:rgba(0,0,0,0.7)">
+                		<tr style = "color:white">
+                			<th>Activity</th>
+                			<th>Due Date</th>
+                			<th>Delete</th>
+                		</tr>
+                		<tr style = "color:yellow">
+                			<th></th>
+                			<th></th>
+                			<th></th>
+                		</tr>
+                	{% for act in activities_ncrit %}                        	
+                		<tr style = "color:yellow">
+                			<th>{{act.item}}</th>
+                			<th>{{act.date}}</th>
+                			<th>
+                				<form method="get" action="delete_task">
+                					<input type="hidden" name="act_id" value={{act.id}}>
+                					<button type="submit" class="btn btn-warning" style="border-style: outset; width:auto ; height:auto ; padding:1px" value="delete">delete &#9888</button>
+                				</form>
+                		    </th>
+                		</tr>
+                	{% endfor %}
+                	</table>                                      
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% if not user.is_authenticated %}
+    <footer class="row tm-mt-small">
+    	<div class="col-12 font-weight-light">
+    		<p style="text-align:center" class="d-inline-block tm-bg-black text-white py-2 px-4">Copyright &copy; 2018 Admin Dashboard. This Template is Created by
+                <a rel="nofollow" href="https://www.tooplate.com" class="text-white tm-footer-link">Tooplate</a>
+            </p>
+    	</div>
+    </footer>
+    {% else %}
+    <footer style="padding-bottom:5px">
+        <marquee>Created and maintained by: Arpit Verma</marquee>
+    </footer>
+    {% endif %}
+    {% compress js inline %}
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    {% endcompress %}
+    {% if not user.is_authenticated %}
+    <script>var ctx = document.getElementById('myChart').getContext('2d');var myChart = new Chart(ctx, {type: 'bar',data: {labels: {{date|safe}},datasets: [{label: 'Number of New Visits',data: {{count|safe}},backgroundColor: ['rgba(255, 0, 255, 0.8)','rgba(54, 162, 235, 0.8)','rgba(255, 206, 86, 0.8)','rgba(75, 192, 192, 0.8)','rgba(153, 102, 255, 0.8)','rgba(255, 159, 64, 0.8)','rgba(54, 162, 235, 0.8)','rgba(255, 0, 0, 0.8)'],borderColor: ['rgba(255, 0, 255, 1)','rgba(54, 162, 235, 1)','rgba(255, 206, 86, 1)','rgba(75, 192, 192, 1)','rgba(153, 102, 255, 1)','rgba(255, 159, 64, 1)','rgba(54, 162, 235, 1)','rgba(255, 0, 0, 1)'],borderWidth: 5}]},options: {scales: {yAxes: [{ticks: {beginAtZero: true}}]}}});</script>
+    {% endif %}
+</body>
+</html>

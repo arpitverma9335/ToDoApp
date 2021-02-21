@@ -1,0 +1,49 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset = "UTF-8">
+	<meta name = "viewport" content ="width=device-width , initial-scale=1.0">
+	<meta http-equiva="X-UA-Compatible" content="ie=edge">
+	<link rel="shortcut icon" href="{% static 'img/clock.jpg' %}" type="image/x-icon">
+	<title>Account</title>
+	<meta name="keywords" content="myaccount To-Do,myaccount todo,myaccounttodo,todomyaccount">
+	<meta name="author" content="Arpit Verma">
+	<style>
+	table{
+		/*border: 1px solid red;*/
+		font-size:3vw;		
+		background-color:rgba(0,0,0,0.2);
+	}
+	th{
+		font-family:arial;
+		color:yellow;
+	}
+	td{
+		color:white;
+		padding:10px;
+	}</style>
+</head>
+<body style="background-image:url({% static 'img/dash-bg-02.jpg' %})">
+<table>
+	<caption style="color:purple">My account</caption>
+	<tr>
+		<th style = "text-align:left">First Name</th>
+		<td colspan="2">{{user.first_name}}</td>	
+	</tr>
+	<tr>
+		<th style = "text-align:left">Last Name</th>
+		<td colspan="2">{{user.last_name}}</td>
+	</tr>
+	<tr>
+		<th style = "text-align:left">Email ID</th>
+		<td colspan="2">{{user.email}}</td>
+	</tr>
+	<tr>
+		<th style = "text-align:left">UserName</th>
+		<td colspan="2">{{user.username}}</td>
+	</tr>
+</table>
+</body>
+</html>
+

@@ -1,0 +1,39 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset = "UTF-8">
+	<meta name = "viewport" content ="width=device-width , initial-scale=1.0">
+	<meta http-equiva="X-UA-Compatible" content="ie=edge">
+	<link rel="shortcut icon" href="{% static 'img/clock.jpg' %}" type="image/x-icon">
+	<title>profile</title>
+	<style>
+	table{
+		/*border: 1px solid red;*/
+		font-size:3vw;		
+		background-color:rgba(0,0,0,0.2);
+	}
+	th{
+		font-family:arial;
+		color:yellow;
+	}
+	td{
+		color:white;
+		padding-bottom:10px;
+		padding-left:30px;
+	}</style>
+</head>
+<body style="background-image:url({% static 'img/dash-bg-02.jpg' %})">
+<table>
+	<caption style="color:purple">My Profile</caption>
+	<tr>
+		<th style = "text-align:left">Alternate Email</th>
+		<td>{{user.profile_user.email}}</td>	
+	</tr>
+	<tr>
+		<th style = "text-align:left">Mobile No</th>
+		<td>{{user.profile_user.mobile_no}}</td>
+	</tr>
+</table>
+</body>
+</html>
