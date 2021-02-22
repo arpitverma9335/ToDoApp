@@ -124,21 +124,24 @@
                 		<tr style = "color:white">
                 			<th>Activity</th>
                 			<th>Due Date</th>
+                            <th>Time left</th>
                 			<th>Delete</th>
                 		</tr>
                 		<tr style = "color:yellow">
                 			<th></th>
                 			<th></th>
+                            <th></th>
                 			<th></th>
                 		</tr>
-                	{% for act in activities_crit %}                        	
+                	{% for act , t_l in activities_crit %}                        	
                 		<tr style = "color:yellow">
                 			<th>{{act.item}}</th>
                 			<th>{{act.date}}</th>
+                            <th>{{t_l}}</th>
                 			<th>
                 				<form method="get" action="delete_task">
                 					<input type="hidden" name="act_id" value={{act.id}}>
-                					<button type="submit" class="btn btn-warning" style="border-style: outset; width:auto ; height:auto ; padding:1px" value="delete">delete &#9888</button>
+                					<button type="submit" class="btn btn-warning" style="border:4px #cccccc;color:red; width:50% ; height:auto ; padding:0.5px" value="delele"><b>&#9888</b></button>
                 				</form>
                 		    </th>
                 		</tr>
@@ -151,21 +154,24 @@
                 		<tr style = "color:white">
                 			<th>Activity</th>
                 			<th>Due Date</th>
+                            <th>Time Left</th>
                 			<th>Delete</th>
                 		</tr>
                 		<tr style = "color:yellow">
                 			<th></th>
                 			<th></th>
+                            <th></th>
                 			<th></th>
                 		</tr>
-                	{% for act in activities_ncrit %}                        	
+                	{% for act , t_l in activities_ncrit %}                        	
                 		<tr style = "color:yellow">
                 			<th>{{act.item}}</th>
                 			<th>{{act.date}}</th>
+                            <th>{{t_l}}</th>
                 			<th>
                 				<form method="get" action="delete_task">
                 					<input type="hidden" name="act_id" value={{act.id}}>
-                					<button type="submit" class="btn btn-warning" style="border-style: outset; width:auto ; height:auto ; padding:1px" value="delete">delete &#9888</button>
+                					<button type="submit" class="btn btn-warning" style="border:4px #cccccc;color:red; width:50% ; height:auto ; padding:0.5px" value="delele"><b>&#9888</b></button>
                 				</form>
                 		    </th>
                 		</tr>
