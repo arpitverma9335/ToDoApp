@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
     <!-- https://fonts.google.com/specimen/Open+Sans -->
     {% compress css inline %}
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+
     <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
     <!-- https://fontawesome.com/ -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
@@ -48,21 +50,6 @@
                                     <span class="sr-only">(current)</span>
                                 </a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                    Reports
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">Daily Report</a>
-                                    <a class="dropdown-item" href="#">Weekly Report</a>
-                                    <a class="dropdown-item" href="#">Yearly Report</a>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Products</a>
-                            </li>
-
                             <li class="nav-item active">
                                 <a class="nav-link" href="#">Accounts</a>
                             </li>
@@ -127,16 +114,43 @@
                     </div>
                 </div>
             </div>
-            
+            <!--
             <div class="tm-col tm-col-small">
                 <div class="bg-white tm-block">
                     <h2 class="tm-block-title">Time is Money</h2>
                     <img src="{% static 'img/clock.jpg' %}" alt="watch" class="img-fluid">
                 </div>
-            </div>
-        
+            </div>-->
+            <div class="tm-col tm-col-small clock">
+                <div class="center-nut"></div>
+                <div class="center-nut2"></div>
+                <div class="indicators"></div>
+                <div class="sec-hand">
+                        <div class="sec"></div>
+                </div>
+                <div class="min-hand">
+                        <div class="min"></div>
+                </div>
+                <div class="hr-hand">
+                        <div class="hr"></div>
+                </div>
+            </div>        
         </div>
     </div>
+    <script>
+      const sec = document.querySelector(".sec");
+      const min = document.querySelector(".min");
+      const hr = document.querySelector(".hr");
+      setInterval(function(){
+        let time  = new Date();
+        let secs = time.getSeconds() * 6;
+        let mins = time.getMinutes() * 6;
+        let hrs = time.getHours() * 30;
+        sec.style.transform = `rotateZ(${secs}deg)`;
+        min.style.transform = `rotateZ(${mins}deg)`;
+        hr.style.transform = `rotateZ(${hrs+(mins/12)}deg)`;
+      });
+    </script>
     {% compress js inline %}
     <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
     <!-- https://jquery.com/download/ -->

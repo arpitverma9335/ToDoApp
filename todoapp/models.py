@@ -7,17 +7,25 @@ class profile_user(models.Model):
       user = models.OneToOneField(User , on_delete = models.CASCADE)
       email = models.EmailField()
       mobile_no = models.CharField(max_length = 12)
+
       def __str__(self):
             return f'{self.user.username} profile_user'
+
 class List(models.Model):
       user = models.ForeignKey(User , on_delete = models.CASCADE)
       item = models.CharField(max_length = 150)
       completed = models.BooleanField(default = False)
       date=models.DateTimeField(default=timezone.now)
 
+      def __str__(self):
+            return self.user.first_name
+
 class user_ip(models.Model):
       ip = models.GenericIPAddressField(default = None)
       time = models.DateField(default=timezone.now)
+
+      def __str__(self):
+            return f'{self.ip}_{self.time}'
 
 class code(models.Model):
       user = models.OneToOneField(User , on_delete = models.CASCADE)

@@ -21,7 +21,11 @@ def index_func(request):
             u.save()
       group = user_ip.objects.values('time').annotate(dcount=Count('ip')).order_by('-time')
       date_list , count_list = [] , []
-      for ele in range(0 , 7):
+      if len(group) <= 7:
+            length = len(group)
+      else:
+            length = 7
+      for ele in range(0 , length):
             date_list.append(group[ele]['time'].strftime('%Y-%m-%d'))
             count_list.append(group[ele]['dcount'])
       current_id = request.user.id
