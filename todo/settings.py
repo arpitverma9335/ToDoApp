@@ -95,7 +95,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'Arpit',
-        'USER': 'postgres' ,
+        'USER': os.environ['db_user'] ,
         'PASSWORD': os.environ['db_pass'],
         'HOST': 'localhost',
     }
