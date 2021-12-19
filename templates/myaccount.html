@@ -1,49 +1,57 @@
-{% load static %}
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset = "UTF-8">
-	<meta name = "viewport" content ="width=device-width , initial-scale=1.0">
-	<meta http-equiva="X-UA-Compatible" content="ie=edge">
-	<link rel="shortcut icon" href="{% static 'img/clock.jpg' %}" type="image/x-icon">
-	<title>Account</title>
-	<meta name="keywords" content="myaccount To-Do,myaccount todo,myaccounttodo,todomyaccount">
-	<meta name="author" content="Arpit Verma">
-	<style>
-	table{
-		/*border: 1px solid red;*/
-		font-size:3vw;		
-		background-color:rgba(0,0,0,0.2);
-	}
-	th{
-		font-family:arial;
-		color:yellow;
-	}
-	td{
-		color:white;
-		padding:10px;
-	}</style>
-</head>
-<body style="background-image:url({% static 'img/dash-bg-02.jpg' %})">
-<table>
-	<caption style="color:purple">My account</caption>
-	<tr>
-		<th style = "text-align:left">First Name</th>
-		<td colspan="2">{{user.first_name}}</td>	
-	</tr>
-	<tr>
-		<th style = "text-align:left">Last Name</th>
-		<td colspan="2">{{user.last_name}}</td>
-	</tr>
-	<tr>
-		<th style = "text-align:left">Email ID</th>
-		<td colspan="2">{{user.email}}</td>
-	</tr>
-	<tr>
-		<th style = "text-align:left">UserName</th>
-		<td colspan="2">{{user.username}}</td>
-	</tr>
-</table>
-</body>
-</html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Profile</title>
+    <meta name="keywords" content="To-Do,todo,daily task,task,tasks,schedule,daily update,tasklist,list">
+    <meta name="description" content="Simple To-Do website is providing free platform to list your activities and tasks, No need to write on paper or memorization. Easy to handle.">
+    <meta name="author" content="Arpit Verma">
+    <style>
+      table {
+        font-family: monospace;
+        font-size: 2vw;
+        border-style: groove;
+        width: 100%;
+      }
 
+      td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+    </style>
+  </head>
+  <body>
+    <h2 style="text-align: center;">Profile</h2>
+
+    <table>
+      <tr>
+        <td>Username</td>
+        <td>{{user.username}}</td>
+      </tr>
+      <tr>
+        <td>First Name</td>
+        <td>{{user.first_name}}</td>
+      </tr>
+      <tr>
+        <td>Last Name</td>
+        <td>{{user.last_name}}</td>
+      </tr>
+      <tr>
+        <td>Email</td>
+        <td>{{user.email}}</td>
+      </tr>
+      <tr>
+        <td>Last Login</td>
+        <td>{{user.last_login}}</td>
+      </tr>
+    </table>
+
+  </body>
+</html>

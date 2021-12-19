@@ -1,9 +1,0 @@
-<h1 style="text-align:center">Your account needs to be verified!</h1>
-<div class="col-mid-3" style="margin-left:30% ; margin-top:10% ; font-size:2vw">
-	<form method="post" action="token">
-		{% csrf_token %}
-		Enter 6 digit code : <input type="number" name = "code" required><br><br>
-		Enter your username:<input type="text" name = "username" required><br><br>
-		<button class="btn btn-success" style="margin-left:30%" type="submit">Verify</button>
-	</form>
-</div>
