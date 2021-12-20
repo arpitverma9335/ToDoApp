@@ -1,5 +1,6 @@
 {% load socialaccount %}
 {% load static %}
+{% load compress %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,8 +13,9 @@
     <meta name="description" content="Simple To-Do website is providing free platform to list your activities and tasks, No need to write on paper or memorization. Easy to handle.">
     <meta name="author" content="Arpit Verma">
     <link rel="shortcut icon" href="{% static 'img/clock.jpg' %}" type="image/x-icon">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600&display=swap">
     <!-- https://fonts.google.com/specimen/Open+Sans -->
+    {% compress css inline %}
     <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
     <!-- https://fontawesome.com/ -->
     <link rel="stylesheet" href="{% static 'css/fullcalendar.min.css' %}">
@@ -21,6 +23,7 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <!-- https://getbootstrap.com/ -->
     <link rel="stylesheet" href="{% static 'css/tooplate.css' %}">
+    {% endcompress %}
     <style>
         table, th, td {
             border: 1px white;
@@ -67,7 +70,7 @@
                                     <a class="nav-link" href="profile">My Profile</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="https://varpit.herokuapp.com/" target="_blank"><i>Developer</i></a>
+                                    <a class="nav-link" href="https://varpit.herokuapp.com/" rel="noreferrer" target="_blank"><i>Developer</i></a>
                                 </li>
                             </ul>
                             <ul class="navbar-nav">
@@ -90,10 +93,10 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mx-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% provider_login_url 'google' %}">Login With Google</a>
+                                    <a class="nav-link" href="{% provider_login_url 'google' %}">Login with <i>Google</i></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="https://varpit.herokuapp.com/" target="_blank"><i>Developer</i></a>
+                                    <a class="nav-link" href="https://varpit.herokuapp.com/" rel="noreferrer" target="_blank">Developer</a>
                                 </li>
                             </ul>                          
                         </div>
@@ -188,8 +191,10 @@
         <marquee>Created and maintained by: Arpit Verma</marquee>
     </footer>
     {% endif %}
+    {% compress js inline %}
     <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    {% endcompress %}
     {% if not user.is_authenticated %}
     <script>var ctx = document.getElementById('myChart').getContext('2d');var myChart = new Chart(ctx, {type: 'bar',data: {labels: {{date|safe}},datasets: [{label: 'Number of New Visits',data: {{count|safe}},backgroundColor: ['rgba(255, 0, 255, 0.8)','rgba(54, 162, 235, 0.8)','rgba(255, 206, 86, 0.8)','rgba(75, 192, 192, 0.8)','rgba(153, 102, 255, 0.8)','rgba(255, 159, 64, 0.8)','rgba(54, 162, 235, 0.8)','rgba(255, 0, 0, 0.8)'],borderColor: ['rgba(255, 0, 255, 1)','rgba(54, 162, 235, 1)','rgba(255, 206, 86, 1)','rgba(75, 192, 192, 1)','rgba(153, 102, 255, 1)','rgba(255, 159, 64, 1)','rgba(54, 162, 235, 1)','rgba(255, 0, 0, 1)'],borderWidth: 5}]},options: {scales: {yAxes: [{ticks: {beginAtZero: true}}]}}});</script>
     {% endif %}
