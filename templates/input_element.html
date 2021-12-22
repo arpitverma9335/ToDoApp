@@ -21,31 +21,32 @@
 		          gtag('config', 'G-WRR0NKQH58');
 		    </script>
 			<style>
-				.btn{
-					background-color: white;
-				}
-				.success{
-					background-color:rgba(0,0,255,0.5);
-				}
-				.success:hover{
-					background-color:rgba(0,255,0,0.5);
-				}
-			</style>
-			<style>
-				.input_val{
-					font-size:2vw;
-					color:red;
-				}
+				.button {
+					  border: none;
+					  color: white;
+					  padding: 16px 32px;
+					  text-align: center;
+					  text-decoration: none;
+					  display: inline-block;
+					  font-size: 16px;
+					  margin: 4px 2px;
+					  transition-duration: 0.4s;
+					  cursor: pointer;
+					}
+					.button1 {
+					  background-color: white; 
+					  color: black; 
+					  border: 2px solid #008CBA;
+					}
 
-				a:visited {
-				  color: green;
-				  font-size:3vw;
-				}
-
-				a:hover {
-				  color: hotpink;
-				  font-size:3vw;
-				}
+					.button1:hover {
+					  background-color: #008CBA;
+					  color: white;
+					}
+					.input_val{
+						font-size:2vw;
+						color:red;
+					}
 			</style>
 		</head>
 		<body style="background-image:url({% static 'img/dash-bg-01.jpg' %})">
@@ -66,7 +67,7 @@
 					<input type="radio" name ="completed" value="False" required>False
 				</p><br><br>
 			</div>
-			<button type = "submit" class="btn success hover" style = "border-style:inset;margin-left:35%">Submit</button>
+			<button type = "submit" class="button button1" style = "border-style:inset;margin-left:35%">Submit</button>
 			</form>
 
 			{% for message in messages %}

@@ -7,6 +7,7 @@ urlpatterns = [
       path('', views.indexFunc),
       path('input-task',views.listInput),
       path('delete-task',views.itemDelete),
+      path('update-task',views.itemUpdate),
       path('profile', views.profileFunc),
                ]
 

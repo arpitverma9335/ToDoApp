@@ -75,6 +75,25 @@ def itemDelete(request):
       else:
             return render(request,'index.html')
 
+def itemUpdate(request):
+      if request.method == 'GET':
+            act_id = request.GET['act_id']
+            obj = get_object_or_404(List,id = act_id)
+            return render(request,'update.html', {'obj':obj})
+      elif request.method == 'POST':
+            act_id = request.POST['act_id']
+            item = request.POST['task']
+            completed = request.POST['completed']
+            date = request.POST['date']
+            obj = get_object_or_404(List,id = act_id)
+            obj.item = item
+            obj.completed = completed
+            obj.date = date
+            obj.save()
+            return redirect('/')
+      else:
+            return render(request,'index.html')
+
 def profileFunc(request):
       user = User.objects.all()
       return render(request , 'myaccount.html')
