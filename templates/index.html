@@ -1,6 +1,5 @@
 {% load socialaccount %}
 {% load static %}
-{% load compress %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,9 +12,8 @@
     <meta name="description" content="Simple To-Do website is providing free platform to list your activities and tasks, No need to write on paper or memorization. Easy to handle.">
     <meta name="author" content="Arpit Verma">
     <link rel="shortcut icon" href="{% static 'img/clock.jpg' %}" type="image/x-icon">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
     <!-- https://fonts.google.com/specimen/Open+Sans -->
-    {% compress css inline %}
     <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
     <!-- https://fontawesome.com/ -->
     <link rel="stylesheet" href="{% static 'css/fullcalendar.min.css' %}">
@@ -23,25 +21,101 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <!-- https://getbootstrap.com/ -->
     <link rel="stylesheet" href="{% static 'css/tooplate.css' %}">
-    {% endcompress %}
     <style>
-        table, th, td {
-            border: 1px white;
-            padding:10px;
-            border-collapse: collapse;
-            font-size:1.5vw;
-            table-layout:fixed;
-        }        
-    </style>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WRR0NKQH58"></script>
-    <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+          font-style:  bold;
+          font-size: 2.5vw;
+        }
+        tr:nth-child(odd) {
+          background-color: yellow;
+          color: blue;
+        }
 
-          gtag('config', 'G-WRR0NKQH58');
-    </script>
+        tr:nth-child(even) {
+          background-color: white;
+        }
+
+        tr:hover{
+            background-color: hotpink;
+        }
+
+        .status-bar{
+            font-size: 3vw;
+            background-color: #fff;
+            text-align: center;
+            margin-top: 5px;
+            color: navy;
+        }
+
+        .glow-on-hover {
+            width: 150px;
+            height: 50px;
+            border: none;
+            outline: none;
+            color: #fff;
+            background: #111;
+            cursor: pointer;
+            position: relative;
+            z-index: 0;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .glow-on-hover:before {
+            content: '';
+            background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+            position: absolute;
+            top: -2px;
+            left:-2px;
+            background-size: 400%;
+            z-index: -1;
+            filter: blur(5px);
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            animation: glowing 20s linear infinite;
+            opacity: 0;
+            transition: opacity .3s ease-in-out;
+            border-radius: 10px;
+        }
+
+        .glow-on-hover:active {
+            color: #000
+        }
+
+        .glow-on-hover:active:after {
+            background: transparent;
+        }
+
+        .glow-on-hover:hover:before {
+            opacity: 1;
+        }
+
+        .glow-on-hover:after {
+            z-index: -1;
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #111;
+            left: 0;
+            top: 0;
+            border-radius: 10px;
+        }
+
+        @keyframes glowing {
+            0% { background-position: 0 0; }
+            50% { background-position: 400% 0; }
+            100% { background-position: 0 0; }
+        }  
+    </style>
 </head>
 
 <body id="reportsPage">
@@ -70,7 +144,7 @@
                                     <a class="nav-link" href="profile">My Profile</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="https://varpit.herokuapp.com/" rel="noreferrer" target="_blank"><i>Developer</i></a>
+                                    <a class="nav-link" href="https://varpit.herokuapp.com/" target="_blank"><i>Developer</i></a>
                                 </li>
                             </ul>
                             <ul class="navbar-nav">
@@ -93,10 +167,10 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mx-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% provider_login_url 'google' %}">Login with <i>Google</i></a>
+                                    <a class="nav-link" href="{% provider_login_url 'google' %}">Login With Google</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="https://varpit.herokuapp.com/" rel="noreferrer" target="_blank">Developer</a>
+                                    <a class="nav-link" href="https://varpit.herokuapp.com/" target="_blank"><i>Developer</i></a>
                                 </li>
                             </ul>                          
                         </div>
@@ -113,85 +187,111 @@
             </div>
             {% endif %}
             {% if user.is_authenticated %}
-            <div class="row tm-content-row tm-mt-big">
+
+            <!--<button onclick="switchVisible();" style="margin-top:10px;">Switch</button>-->
+            <button class="glow-on-hover" type="button" onclick="switchVisible();">Switch Tasks</button>
+
+            <div class="status-bar">
+                    <h2 id="status">Important</h2>
+            </div>
+
+            <div class="row tm-content-row tm-mt-big" id="important">
                 <div>
-                    <h2 style="color:white;text-align:center">Upcoming Tasks</h2>
-                    <table caption="schedule" style = "width:100%;background-color:rgba(0,0,0,0.7)">
-                    <tr style = "color:white">
-                      <th>Activity</th>
-                      <th>Due Date</th>
-                      <th>Time left</th>
-                      <th>Delete</th>
-                      <th>Update</th>
-                    </tr>
-                    <tr style = "color:yellow">
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                    </tr>
-                  {% for act , t_l in activities_crit %}                          
-                    <tr style = "color:yellow">
-                      <th>{{act.item}}</th>
-                      <th>{{act.date}}</th>
-                      <th>{{t_l}}</th>
-                      <th>
-                        <form method="get" action="delete-task">
-                          <input type="hidden" name="act_id" value={{act.id}}>
-                          <button type="submit" class="btn btn-danger" style="color:red; width:50% ; height:auto ; padding:0.5px" value="delele"><b>&#9888</b></button>
-                        </form>
-                        </th>
-                        <th>
-                        <form method="get" action="update-task">
-                          <input type="hidden" name="act_id" value={{act.id}}>
-                          <button type="submit" class="btn btn-warning" style="color:blue; width:50% ; height:auto ; padding:0.5px" value="update"><b>&#9888</b></button>
-                        </form>
-                        </th>
-                    </tr>
-                  {% endfor %}
-                  </table>                                                        
-                </div><br><br>
-                <div>
-                    <strong><h2 style="color:darkorange;text-align:center">Less Important Upcoming Tasks</h2></strong>
-                  <table caption="schedule" style = "width:100%;background-color:rgba(0,0,0,0.7)">
-                    <tr style = "color:white">
-                      <th>Activity</th>
-                      <th>Due Date</th>
-                      <th>Time Left</th>
-                      <th>Delete</th>
-                      <th>Update</th>
-                    </tr>
-                    <tr style = "color:yellow">
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                    </tr>
-                  {% for act , t_l in activities_ncrit %}                         
-                    <tr style = "color:yellow">
-                      <th>{{act.item}}</th>
-                      <th>{{act.date}}</th>
-                      <th>{{t_l}}</th>
-                      <th>
-                        <form method="get" action="delete-task">
-                          <input type="hidden" name="act_id" value={{act.id}}>
-                          <button type="submit" class="btn btn-danger" style="color:red; width:50% ; height:auto ; padding:0.5px" value="delele"><b>&#9888</b></button>
-                        </form>
-                        </th>
-                        <th>
-                        <form method="get" action="update-task">
-                          <input type="hidden" name="act_id" value={{act.id}}>
-                          <button type="submit" class="btn btn-warning" style="color:blue; width:50% ; height:auto ; padding:0.5px" value="delele"><b>&#9888</b></button>
-                        </form>
-                        </th>
+                    <table>
+                        <col style="width:40%">
+                        <col style="width:30%">
+                        <col style="width:30%">
+                        <col style="width:5%">
+                        <col style="width:5%">
+                    <thead>
+                        <tr>
+                          <th>Activity</th>
+                          <th>Due Date</th>
+                          <th>Time left</th>
+                          <th>Delete</th>
+                          <th>Update</th>
                         </tr>
-                  {% endfor %}
-                  </table>                                      
+                        <tr>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for act , t_l in activities_crit %}                          
+                        <tr>
+                          <td  style="font-size: 4vw">{{act.item}}</td>
+                          <td>{{act.date}}</td>
+                          <td>{{t_l}}</td>
+                          <td>
+                            <form method="get" action="delete-task">
+                              <input type="hidden" name="act_id" value={{act.id}}>
+                              <button type="submit" class="btn btn-danger" value="delele"><i class="fas fa-trash" style="font-size: 3vw"></i></button>
+                            </form>
+                        </td>
+                        <td>
+                            <form method="get" action="update-task">
+                              <input type="hidden" name="act_id" value={{act.id}}>
+                              <button type="submit" class="btn btn-warning" value="update"><i class="fas fa-edit" style="font-size: 3vw"></i></button>
+                            </form>
+                        </td>
+                        </tr>
+                        {% endfor %}  
+                    </tbody>
+                  </table>                                                      
                 </div>
             </div>
-            {% endif %}
+            <div class="row tm-content-row tm-mt-big" id="less-important" style="display:none">
+                <div>
+                  <table>
+                        <col style="width:40%">
+                        <col style="width:30%">
+                        <col style="width:30%">
+                        <col style="width:5%">
+                        <col style="width:5%">
+                        <thead>
+                            <tr>
+                              <th>Activity</th>
+                              <th>Due Date</th>
+                              <th>Time Left</th>
+                              <th>Delete</th>
+                              <th>Update</th>
+                            </tr>
+                            <tr>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for act , t_l in activities_ncrit %}
+                            <tr>
+                              <td style="font-size: 4vw">{{act.item}}</td>
+                              <td>{{act.date}}</td>
+                              <td>{{t_l}}</td>
+                              <td>
+                                <form method="get" action="delete-task">
+                                  <input type="hidden" name="act_id" value={{act.id}}>
+                                  <button type="submit" class="btn btn-danger" value="delele"><i class="fas fa-trash" style="font-size: 3vw"></i></button>
+                                </form>
+                            </td>
+                            <td>
+                                <form method="get" action="update-task">
+                                  <input type="hidden" name="act_id" value={{act.id}}>
+                                  <button type="submit" class="btn btn-warning" value="update"><i class="fas fa-edit" style="font-size: 3vw"></i></button>
+                                </form>
+                            </td>
+                            </tr>
+                            {% endfor %} 
+                        </tbody>
+                    </table>
+                </div>
+            </div> 
+            {% endif %}                                  
         </div>
     </div>
     {% if not user.is_authenticated %}
@@ -207,10 +307,24 @@
         <marquee>Created and maintained by: Arpit Verma</marquee>
     </footer>
     {% endif %}
-    {% compress js inline %}
     <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    {% endcompress %}
+    <script>
+        function switchVisible() {
+            if (document.getElementById('important')) {
+                if (document.getElementById('important').style.display == 'none') {
+                    document.getElementById('important').style.display = 'block';
+                    document.getElementById('less-important').style.display = 'none';
+                    document.getElementById('status').innerHTML = "Important";
+                }
+                else {
+                    document.getElementById('important').style.display = 'none';
+                    document.getElementById('less-important').style.display = 'block';
+                    document.getElementById('status').innerHTML = "Less Important";
+                }
+            }
+        }
+    </script>
     {% if not user.is_authenticated %}
     <script>var ctx = document.getElementById('myChart').getContext('2d');var myChart = new Chart(ctx, {type: 'bar',data: {labels: {{date|safe}},datasets: [{label: 'Number of New Visits',data: {{count|safe}},backgroundColor: ['rgba(255, 0, 255, 0.8)','rgba(54, 162, 235, 0.8)','rgba(255, 206, 86, 0.8)','rgba(75, 192, 192, 0.8)','rgba(153, 102, 255, 0.8)','rgba(255, 159, 64, 0.8)','rgba(54, 162, 235, 0.8)','rgba(255, 0, 0, 0.8)'],borderColor: ['rgba(255, 0, 255, 1)','rgba(54, 162, 235, 1)','rgba(255, 206, 86, 1)','rgba(75, 192, 192, 1)','rgba(153, 102, 255, 1)','rgba(255, 159, 64, 1)','rgba(54, 162, 235, 1)','rgba(255, 0, 0, 1)'],borderWidth: 5}]},options: {scales: {yAxes: [{ticks: {beginAtZero: true}}]}}});</script>
     {% endif %}

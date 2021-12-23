@@ -49,8 +49,8 @@ def indexFunc(request):
             if t_left < 0:
                   time_rem_2.append('Time is Up')
                   continue
-            days = t_left//(3600 * 24)
-            hrs = (t_left % (3600 * 24))//24
+            days = int(t_left/(3600 * 24))
+            hrs = int((t_left % (3600 * 24))/3600)
             time_rem_2.append(f'{days} days, {hrs} hours')
       return render(request,'index.html',{'date':date_list[-1::-1] , 'count':count_list[-1::-1] , 'activities_crit':zip(activities_1 , time_rem_1) , 'activities_ncrit':zip(activities_2 , time_rem_2)})
 

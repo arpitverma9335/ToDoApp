@@ -209,7 +209,6 @@ label {
 
 .btn {
   border-radius: 0;
-  padding: 13px 28px;
   transition: all 0.2s ease;
   max-width: 100%;
 }
@@ -237,12 +236,21 @@ label {
 .btn-danger {
   color: #9f1321;
   background-color: transparent;
-  border-color: #9f1321;
+}
+
+.btn-warning {
+  color: blue;
+  background-color: transparent;
 }
 
 .btn-danger:hover {
   color: #9f1321;
   background-color: rgba(159, 19, 32, 0.27);
+  border-color: #9f1321;
+}
+.btn-warning:hover {
+  color: blue;
+  background-color: transparent;
   border-color: #9f1321;
 }
 
