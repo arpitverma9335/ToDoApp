@@ -1,5 +1,6 @@
 {% load socialaccount %}
 {% load static %}
+{% load compress %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,19 +9,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Simple To-Do website</title>
-    <meta name="keywords" content="To-Do,todo,daily task,task,tasks,schedule,daily update,tasklist,list">
+    <meta name="keywords" content="regularly,regularly herokuapp, herokuapp regularly,To-Do,todo,daily task,task,tasks,schedule,daily update,tasklist,list">
     <meta name="description" content="Simple To-Do website is providing free platform to list your activities and tasks, No need to write on paper or memorization. Easy to handle.">
     <meta name="author" content="Arpit Verma">
     <link rel="shortcut icon" href="{% static 'img/clock.jpg' %}" type="image/x-icon">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
-    <!-- https://fonts.google.com/specimen/Open+Sans -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600&display=swap">
+    {% compress css inline %}
     <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
-    <!-- https://fontawesome.com/ -->
     <link rel="stylesheet" href="{% static 'css/fullcalendar.min.css' %}">
-    <!-- https://fullcalendar.io/ -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <!-- https://getbootstrap.com/ -->
     <link rel="stylesheet" href="{% static 'css/tooplate.css' %}">
+    {% endcompress %}
     <style>
         table {
           font-family: arial, sans-serif;
@@ -116,6 +115,13 @@
             100% { background-position: 0 0; }
         }  
     </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WRR0NKQH58"></script>
+    <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-WRR0NKQH58');
+    </script>
 </head>
 
 <body id="reportsPage">
@@ -144,7 +150,7 @@
                                     <a class="nav-link" href="profile">My Profile</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="https://varpit.herokuapp.com/" target="_blank"><i>Developer</i></a>
+                                    <a class="nav-link" href="https://varpit.herokuapp.com/" rel="noreferrer" target="_blank"><i>Developer</i></a>
                                 </li>
                             </ul>
                             <ul class="navbar-nav">
@@ -167,10 +173,10 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mx-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% provider_login_url 'google' %}">Login With Google</a>
+                                    <a class="nav-link" href="{% provider_login_url 'google' %}">Login with <i>Google</i></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="https://varpit.herokuapp.com/" target="_blank"><i>Developer</i></a>
+                                    <a class="nav-link" href="https://varpit.herokuapp.com/" rel="noreferrer" target="_blank"><i>Developer</i></a>
                                 </li>
                             </ul>                          
                         </div>
@@ -307,8 +313,10 @@
         <marquee>Created and maintained by: Arpit Verma</marquee>
     </footer>
     {% endif %}
+    {% compress js inline %}
     <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    {% endcompress %}
     <script>
         function switchVisible() {
             if (document.getElementById('important')) {
