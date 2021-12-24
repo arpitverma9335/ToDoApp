@@ -1,4 +1,5 @@
 {% load static %}
+{% load socialaccount %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -10,8 +11,9 @@
     <meta name="description" content="Simple To-Do website is providing free platform to list your activities and tasks, No need to write on paper or memorization. Easy to handle.">
     <meta name="author" content="Arpit Verma">
     <link rel="shortcut icon" href="{% static 'img/clock.jpg' %}" type="image/x-icon">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600&display=swap">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vast+Shadow&display=swap" rel="stylesheet">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WRR0NKQH58"></script>
     <script>
           window.dataLayer = window.dataLayer || [];
@@ -22,48 +24,63 @@
     </script>
     <style>
       table {
-        font-family: monospace;
-        font-size: 2vw;
-        border-style: groove;
-        width: 100%;
+        table-layout: auto;
+        font-size: 3vw;
+        font-family: 'Vast Shadow', cursive;
+        border-style: solid red;
+        margin-left:auto;
+        margin-right:auto;
       }
 
       td, th {
-        border: 1px solid #dddddd;
-        text-align: left;
-        padding: 8px;
+        border-style: none;
+        padding: 18px;
       }
 
       tr:nth-child(even) {
-        background-color: #dddddd;
+        border-style: none;
+        background-color: yellow;
+      }
+      img {
+        margin-top: 60px;
+        margin-left:40%;
+        border-radius: 50%;
+        border: solid #000;
+      }
+      div {
+        margin-left:auto;
+        margin-right:auto;
+        width: auto;
+        border: solid #000;
+        background-color: #fff;
       }
     </style>
   </head>
-  <body>
-    <h2 style="text-align: center;">Profile</h2>
-
-    <table>
-      <tr>
-        <td>Username</td>
-        <td>{{user.username}}</td>
-      </tr>
-      <tr>
-        <td>First Name</td>
-        <td>{{user.first_name}}</td>
-      </tr>
-      <tr>
-        <td>Last Name</td>
-        <td>{{user.last_name}}</td>
-      </tr>
-      <tr>
-        <td>Email</td>
-        <td>{{user.email}}</td>
-      </tr>
-      <tr>
-        <td>Last Login</td>
-        <td>{{user.last_login}}</td>
-      </tr>
-    </table>
-
+  <body style="background-color: #00000085">
+        <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}"/>
+        <div>
+          <table>
+            <tr>
+              <td>Username</td>
+              <td>{{user.username}}</td>
+            </tr>
+            <tr>
+              <td>First Name</td>
+              <td>{{user.first_name}}</td>
+            </tr>
+            <tr>
+              <td>Last Name</td>
+              <td>{{user.last_name}}</td>
+            </tr>
+            <tr>
+              <td>Email</td>
+              <td>{{user.email}}</td>
+            </tr>
+            <tr>
+              <td>Last Login</td>
+              <td>{{user.last_login}}</td>
+            </tr>
+          </table>
+      </div>
   </body>
 </html>
