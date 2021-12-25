@@ -1,8 +1,9 @@
 import os
-
 import django_heroku
+from pathlib import Path
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'staticfiles/js', 'serviceworker.js')
 
 SECRET_KEY = os.environ['secret_key_todo']
 
@@ -30,6 +31,7 @@ INSTALLED_APPS = [
       'allauth.socialaccount',
       'allauth.socialaccount.providers.google',
       'compressor',
+      'pwa',
       ]
 
 SITE_ID = 1
@@ -53,6 +55,34 @@ SOCIALACCOUNT_PROVIDERS = {
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+PWA_APP_NAME = 'Regularly'
+PWA_APP_DESCRIPTION = "Simple To-Do Web Application" 
+PWA_APP_THEME_COLOR = '#0A0302' 
+PWA_APP_BACKGROUND_COLOR = '#fff' 
+PWA_APP_DISPLAY = 'standalone' 
+PWA_APP_ID = '/' 
+PWA_APP_ORIENTATION = 'portrait' 
+PWA_APP_START_URL = '/' 
+PWA_APP_STATUS_BAR_COLOR = 'default' 
+PWA_APP_ICONS = [ { 'src': '/static/img/icon_512x512.png', 'sizes': '512x512', "purpose": "any maskable"},
+                   { 'src': '/static/img/icon_192x192.png', 'sizes': '192x192', "purpose": "any maskable"},
+                   { 'src': '/static/img/icon_160x160.png', 'sizes': '160x160', "purpose": "any maskable"},
+                   { 'src': '/static/img/icon_148x148.png', 'sizes': '148x148', "purpose": "any maskable"},
+                   { 'src': '/static/img/icon_96x96.png', 'sizes': '96x96', "purpose": "any maskable"} ,
+                   { 'src': '/static/img/icon_48x48.png', 'sizes': '48x48', "purpose": "any maskable"} ,
+                   { 'src': '/static/img/icon_32x32.png', 'sizes': '32x32', "purpose": "any maskable"} ,
+                ] 
+PWA_APP_ICONS_APPLE = [ { 'src': '/static/img/icon_192x192.png', 'sizes': '192x192'},
+                        { 'src': '/static/img/icon_160x160.png', 'sizes': '160x160'},
+                        { 'src': '/static/img/icon_148x148.png', 'sizes': '148x148'},
+                        { 'src': '/static/img/icon_96x96.png', 'sizes': '96x96'} ,
+                        { 'src': '/static/img/icon_48x48.png', 'sizes': '48x48'} ,
+                        { 'src': '/static/img/icon_32x32.png', 'sizes': '32x32'} ] 
+
+PWA_APP_SPLASH_SCREEN = [ { 'src': '/static/img/icon_512x512.png', 'sizes': '512x512'} ] 
+PWA_APP_DIR = 'ltr' 
+PWA_APP_LANG = 'en-US'
 
 MIDDLEWARE = [
     'django.middleware.gzip.GZipMiddleware',
