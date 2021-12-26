@@ -10,7 +10,7 @@
     <meta name="keywords" content="To-Do,todo,daily task,task,tasks,schedule,daily update,tasklist,list">
     <meta name="description" content="Simple To-Do website is providing free platform to list your activities and tasks, No need to write on paper or memorization. Easy to handle.">
     <meta name="author" content="Arpit Verma">
-    <link rel="shortcut icon" href="{% static 'img/clock.jpg' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'img/icon.jpg' %}" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Vast+Shadow&display=swap" rel="stylesheet">
@@ -54,11 +54,24 @@
         border: solid #000;
         background-color: #fff;
       }
+      a:link, a:visited {
+        background-color: #f44336;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      a:hover, a:active {
+        background-color: red;
+      }
     </style>
   </head>
   <body style="background-color: #00000085">
-        <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}"/>
+    <a href="\">Home</a><br>        
         <div>
+          <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}"/>
           <table>
             <tr>
               <td>Username</td>

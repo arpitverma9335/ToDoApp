@@ -1,77 +1,144 @@
 {% load static %}
-<!doctype html>
-	<html lang="en">
-		<head>
-			<meta charset = "UTF-8">
-			<meta name = "viewport" content ="width=device-width , initial-scale=1.0">
-			<meta http-equiva="X-UA-Compatible" content="ie=edge">
-			<link rel="shortcut icon" href="{% static 'img/clock.jpg' %}" type="image/x-icon">
-			<title>Add your task</title>
-			<meta name="keywords" content="task To-Do,my task todo,mytaskstodo,todotasks">
-			<meta name="author" content="Arpit Verma">
-			<link rel="shortcut icon" href="{% static 'img/clock.jpg' %}" type="image/x-icon">
-    		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600&display=swap">
-			<!-- Global site tag (gtag.js) - Google Analytics -->
-		    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WRR0NKQH58"></script>
-		    <script>
-		          window.dataLayer = window.dataLayer || [];
-		          function gtag(){dataLayer.push(arguments);}
-		          gtag('js', new Date());
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset = "UTF-8">
+	<meta name = "viewport" content ="width=device-width , initial-scale=1.0">
+	<meta http-equiva="X-UA-Compatible" content="ie=edge">
+	<link rel="shortcut icon" href="{% static 'img/clock.jpg' %}" type="image/x-icon">
+	<title>Add your task</title>
+	<meta name="keywords" content="task To-Do,my task todo,mytaskstodo,todotasks">
+	<meta name="author" content="Arpit Verma">
+	<link rel="shortcut icon" href="{% static 'img/icon.jpg' %}" type="image/x-icon">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600&display=swap">
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WRR0NKQH58"></script>
+    <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
 
-		          gtag('config', 'G-WRR0NKQH58');
-		    </script>
-			<style>
-				.button {
-					  border: none;
-					  color: white;
-					  padding: 16px 32px;
-					  text-align: center;
-					  text-decoration: none;
-					  display: inline-block;
-					  font-size: 16px;
-					  margin: 4px 2px;
-					  transition-duration: 0.4s;
-					  cursor: pointer;
-					}
-					.button1 {
-					  background-color: white; 
-					  color: black; 
-					  border: 2px solid #008CBA;
-					}
+          gtag('config', 'G-WRR0NKQH58');
+    </script>
+	<style>
+			* {
+			  box-sizing: border-box;
+			}
+			body {
+				 background-image:url("{% static 'img/dash-bg-01.jpg' %}");
+			}
 
-					.button1:hover {
-					  background-color: #008CBA;
-					  color: white;
-					}
-					.input_val{
-						font-size:2vw;
-						color:red;
-					}
-			</style>
-		</head>
-		<body style="background-image:url({% static 'img/dash-bg-01.jpg' %})">
-			<form action="input-task" method="post">
-			{% csrf_token %}
-			<div style="background-color:rgba(0,0,0,0.5);padding-left:35%;padding-top:60px">
-				<em style="color:white;font-size:2vw">Task:</em><br>
-				<p style="margin-left:5%"><input type="text" class ="input_val" name ="task" placeholder = "task" required></p><br>
-			</div>
-			<div style="background-color:rgba(0,0,0,0.3);padding-left:35%;padding-top:10px">
-				<em style="color:white;font-size:2vw">DueDate:</em><br>
-				<p style="margin-left:5%"><input type="datetime-local" class ="input_val" name ="date" placeholder = "date" required><br>
-			</div>
-			<div style="background-color:rgba(0,0,0,0.1);padding-left:35%;padding-top:10px">
-				<em style="color:white;font-size:2vw">Critical:</em><br>
-				<p style="margin-left:5%;font-size:2vw;color:yellow">
-					<input type="radio" name ="completed" value="True" required>True
-					<input type="radio" name ="completed" value="False" required>False
-				</p><br><br>
-			</div>
-			<button type = "submit" class="button button1" style = "border-style:inset;margin-left:35%">Submit</button>
-			</form>
+			input[type=text], select, textarea {
+			  width: 100%;
+			  padding: 12px;
+			  border: 1px solid #ccc;
+			  border-radius: 4px;
+			  resize: vertical;
+			}
 
-			{% for message in messages %}
-			<h1>{{message}}</h1>
-			{% endfor %}
-	</body>
+			label {
+			  padding: 12px 12px 12px 0;
+			  display: inline-block;
+			}
+
+			input[type=submit] {
+			  background-color: #04AA6D;
+			  color: white;
+			  padding: 12px 20px;
+			  border: none;
+			  border-radius: 4px;
+			  cursor: pointer;
+			  float: right;
+			}
+
+			input[type=submit]:hover {
+			  background-color: #45a049;
+			}
+
+			.container {
+			  border-radius: 5px;
+			  background-color: #f2f2f2;
+			  padding: 20px;
+			}
+
+			.col-25 {
+			  float: left;
+			  width: 25%;
+			  margin-top: 6px;
+			}
+
+			.col-75 {
+			  float: left;
+			  width: 75%;
+			  margin-top: 6px;
+			}
+			.row:after {
+			  content: "";
+			  display: table;
+			  clear: both;
+			}
+			@media screen and (max-width: 600px) {
+			  .col-25, .col-75, input[type=submit] {
+			    width: 100%;
+			    margin-top: 0;
+			  }
+			}
+			a:link, a:visited {
+			  background-color: #f44336;
+			  color: white;
+			  padding: 14px 25px;
+			  text-align: center;
+			  text-decoration: none;
+			  display: inline-block;
+			}
+
+			a:hover, a:active {
+			  background-color: red;
+			}
+	</style>
+</head>
+<body>
+	<h2 style="color:#fff">Input Your Task Here...</h2>
+	<div class="container">
+	  <em style="color:#0b01a7; font-size: 1.5rem;">“Unless commitment is made, there are only promises and hopes… but no plans.” – <strong>Peter F. Drucker</strong></em><br><br>
+	  <form action="input-task" method="post">
+	  	{% csrf_token %}
+	    <div class="row">
+	      <div class="col-25">
+	        <label for="task">Task</label>
+	      </div>
+	      <div class="col-75">
+	        <input type="text" id = "task" class ="input_val" name ="task" placeholder = "task" required>
+	      </div>
+	    </div>
+	    <div class="row">
+	      <div class="col-25">
+	        <label for="date">Due Date</label>
+	      </div>
+	      <div class="col-75">
+	        <input type="datetime-local" id = "date" class ="input_val" name ="date" placeholder = "date" required>
+	      </div>
+	    </div>
+	    <div class="row">
+	      <div class="col-25">
+	        <label for="imp">Important</label>
+	      </div>
+	      <div class="col-75">
+	        <select id="imp" name="completed">
+	          <option value="True">Yes</option>
+	          <option value="False">No</option>
+	        </select>
+	      </div>
+	    </div>
+	    <div class="row">
+	      <input type="submit" value="Commit">
+	    </div>
+	  </form>
+	</div>
+	<br>
+	<a href="\">Home</a>
+	{% for message in messages %}
+	<h1>{{message}}</h1>
+	{% endfor %}
+</body>
 </html>
