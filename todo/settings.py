@@ -59,19 +59,26 @@ LOGOUT_REDIRECT_URL = '/'
 PWA_APP_NAME = 'Regularly'
 PWA_APP_DESCRIPTION = "Simple To-Do Web Application" 
 PWA_APP_THEME_COLOR = '#0A0302' 
-PWA_APP_BACKGROUND_COLOR = '#fff' 
+PWA_APP_BACKGROUND_COLOR = '#000' 
 PWA_APP_DISPLAY = 'standalone' 
 PWA_APP_ID = '/' 
 PWA_APP_ORIENTATION = 'portrait' 
 PWA_APP_START_URL = '/' 
 PWA_APP_STATUS_BAR_COLOR = 'default' 
-PWA_APP_ICONS = [ { 'src': '/static/img/icon_512x512.png', 'sizes': '512x512', "purpose": "any maskable"},
-                   { 'src': '/static/img/icon_192x192.png', 'sizes': '192x192', "purpose": "any maskable"},
-                   { 'src': '/static/img/icon_160x160.png', 'sizes': '160x160', "purpose": "any maskable"},
-                   { 'src': '/static/img/icon_148x148.png', 'sizes': '148x148', "purpose": "any maskable"},
-                   { 'src': '/static/img/icon_96x96.png', 'sizes': '96x96', "purpose": "any maskable"} ,
-                   { 'src': '/static/img/icon_48x48.png', 'sizes': '48x48', "purpose": "any maskable"} ,
-                   { 'src': '/static/img/icon_32x32.png', 'sizes': '32x32', "purpose": "any maskable"} ,
+PWA_APP_ICONS = [ { 'src': '/static/img/icon_512x512.png', 'sizes': '512x512', "purpose": "any"},
+                   { 'src': '/static/img/icon_512x512.png', 'sizes': '512x512', "purpose": "maskable"},
+                   { 'src': '/static/img/icon_192x192.png', 'sizes': '192x192', "purpose": "any"},
+                   { 'src': '/static/img/icon_192x192.png', 'sizes': '192x192', "purpose": "maskable"},
+                   { 'src': '/static/img/icon_160x160.png', 'sizes': '160x160', "purpose": "any"},
+                   { 'src': '/static/img/icon_160x160.png', 'sizes': '160x160', "purpose": "maskable"},
+                   { 'src': '/static/img/icon_148x148.png', 'sizes': '148x148', "purpose": "any"},
+                   { 'src': '/static/img/icon_148x148.png', 'sizes': '148x148', "purpose": "maskable"},
+                   { 'src': '/static/img/icon_96x96.png', 'sizes': '96x96', "purpose": "any"} ,
+                   { 'src': '/static/img/icon_96x96.png', 'sizes': '96x96', "purpose": "maskable"} ,
+                   { 'src': '/static/img/icon_48x48.png', 'sizes': '48x48', "purpose": "any"} ,
+                   { 'src': '/static/img/icon_48x48.png', 'sizes': '48x48', "purpose": "maskable"} ,
+                   { 'src': '/static/img/icon_32x32.png', 'sizes': '32x32', "purpose": "any"} ,
+                   { 'src': '/static/img/icon_32x32.png', 'sizes': '32x32', "purpose": "maskable"} ,
                 ] 
 PWA_APP_ICONS_APPLE = [ { 'src': '/static/img/icon_192x192.png', 'sizes': '192x192'},
                         { 'src': '/static/img/icon_160x160.png', 'sizes': '160x160'},
