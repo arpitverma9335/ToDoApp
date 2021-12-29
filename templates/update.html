@@ -6,6 +6,7 @@
 	<meta charset = "UTF-8">
 	<meta name = "viewport" content ="width=device-width , initial-scale=1">
 	<meta http-equiva="X-UA-Compatible" content="ie=edge">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://varpit.herokuapp.com https://www.google-analytics.com https://fonts.gstatic.com/; script-src https: 'unsafe-inline'; style-src https: 'unsafe-inline';">
 	<link rel="shortcut icon" href="{% static 'img/icon.jpg' %}" type="image/x-icon">
 	<title>Update your task</title>
 	<meta name="keywords" content="task To-Do,my task todo,mytaskstodo,todotasks">
@@ -129,7 +130,7 @@
 	  </form>
 	</div>
 	<br>
-	<a href="\">Home</a>
+	<a href="javascript:history.go(-1)">Back</a>
 	{% for message in messages %}
 	<h1>{{message}}</h1>
 	{% endfor %}

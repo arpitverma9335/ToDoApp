@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://varpit.herokuapp.com https://www.google-analytics.com https://fonts.gstatic.com/; script-src https: 'unsafe-inline'; style-src https: 'unsafe-inline';">
     <title>Profile</title>
     <meta name="keywords" content="To-Do,todo,daily task,task,tasks,schedule,daily update,tasklist,list">
     <meta name="description" content="Simple To-Do website is providing free platform to list your activities and tasks, No need to write on paper or memorization. Easy to handle.">
@@ -69,7 +70,7 @@
     </style>
   </head>
   <body style="background-color: #00000085">
-    <a href="\">Home</a><br>        
+    <a href="javascript:history.go(-1)">Back</a>        
         <div>
           <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}"/>
           <table>

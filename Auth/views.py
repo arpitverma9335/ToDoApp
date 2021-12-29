@@ -9,50 +9,32 @@ import pytz
 from django.shortcuts import get_object_or_404,render,HttpResponseRedirect,redirect
 
 def indexFunc(request):
-      x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-      if x_forwarded_for:
-            ip = x_forwarded_for.split(',')[0]
+      if not request.user.is_authenticated:
+            x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+            if x_forwarded_for:
+                  ip = x_forwarded_for.split(',')[0]
+            else:
+                  ip = request.META.get('REMOTE_ADDR')
+            u = user_ip(ip = ip)
+            if len(user_ip.objects.filter(ip = ip).values()) > 0:
+                  pass
+            else:
+                  u.save()
+            group = user_ip.objects.values('time').annotate(dcount=Count('ip')).order_by('-time')
+            date_list , count_list = [] , []
+            if len(group) <= 7:
+                  length = len(group)
+            else:
+                  length = 7
+            for ele in range(0 , length):
+                  date_list.append(group[ele]['time'].strftime('%Y-%m-%d'))
+                  count_list.append(group[ele]['dcount'])
+            return render(request,'index.html',{'date':date_list[-1::-1] , 'count':count_list[-1::-1]})
       else:
-            ip = request.META.get('REMOTE_ADDR')
-      u = user_ip(ip = ip)
-      if len(user_ip.objects.filter(ip = ip).values()) > 0:
-            pass
-      else:
-            u.save()
-      group = user_ip.objects.values('time').annotate(dcount=Count('ip')).order_by('-time')
-      date_list , count_list = [] , []
-      if len(group) <= 7:
-            length = len(group)
-      else:
-            length = 7
-      for ele in range(0 , length):
-            date_list.append(group[ele]['time'].strftime('%Y-%m-%d'))
-            count_list.append(group[ele]['dcount'])
-      current_id = request.user.id
-      activities_1= List.objects.filter(user__id=current_id , completed='True').order_by('date').values()
-      activities_2 = List.objects.filter(user__id=current_id , completed='False').order_by('date').values()
-      time_rem_1 , time_rem_2 = [] , []
-      dt_now = datetime.now(tz=pytz.timezone('Asia/Kolkata'))
-      print('####', dt_now)
-      for i in activities_1:
-            dt_due = i.get('date')
-            t_left = (dt_due - dt_now).total_seconds()
-            if t_left < 0:
-                  time_rem_1.append('Time is Up')
-                  continue
-            days = int(t_left/(3600 * 24))
-            hrs = int((t_left % (3600 * 24))/3600)
-            time_rem_1.append(f'{days} days, {hrs} hours')
-      for i in activities_2:
-            dt_due = i.get('date')
-            t_left = (dt_due - dt_now).total_seconds()
-            if t_left < 0:
-                  time_rem_2.append('Time is Up')
-                  continue
-            days = int(t_left/(3600 * 24))
-            hrs = int((t_left % (3600 * 24))/3600)
-            time_rem_2.append(f'{days} days, {hrs} hours')
-      return render(request,'index.html',{'date':date_list[-1::-1] , 'count':count_list[-1::-1] , 'activities_crit':zip(activities_1 , time_rem_1) , 'activities_ncrit':zip(activities_2 , time_rem_2)})
+            current_id = request.user.id
+            activities_1= List.objects.filter(user__id=current_id , completed='True').order_by('date').values()
+            activities_2 = List.objects.filter(user__id=current_id , completed='False').order_by('date').values()
+            return render(request,'index.html',{'activities_crit':activities_1 , 'activities_ncrit':activities_2})
 
 def listInput(request):
 	user_id = request.user.id
