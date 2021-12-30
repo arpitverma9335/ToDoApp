@@ -95,6 +95,7 @@ MIDDLEWARE = [
     'django.middleware.gzip.GZipMiddleware',
     'htmlmin.middleware.HtmlMinifyMiddleware',
     'htmlmin.middleware.MarkRequestMiddleware',
+    'csp.middleware.CSPMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -102,6 +103,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+CSP_DEFAULT_SRC = ["'self'", '*']
+CSP_SCRIPT_SRC = [
+    "'self' https: 'unsafe-inline'",
+    'https://cdnjs.cloudflare.com',
+]
+CSP_STYLE_SRC = [
+    "'self' https: 'unsafe-inline'",
 ]
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = False
@@ -126,6 +136,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'csp.context_processors.nonce',
             ],
         },
     },
