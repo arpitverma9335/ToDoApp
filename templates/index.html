@@ -325,10 +325,10 @@
     </footer>
     {% endif %}
     {% compress js %}
-    <script async src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script defer src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
     {% endcompress %}
     {% compress js %}
-    <script async src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script defer src="{% static 'js/bootstrap.min.js' %}"></script>
     {% endcompress %}
     <script>
         function switchVisible() {
