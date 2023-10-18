@@ -41,6 +41,6 @@ sqlparse==0.4.2
 style==1.1.0
 typing_extensions==4.0.1
 update==0.0.1
-urllib3==1.26.7
+urllib3==1.26.18
 webencodings==0.5.1
 whitenoise==5.2.0
